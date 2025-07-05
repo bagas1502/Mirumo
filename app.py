@@ -5,12 +5,15 @@ app = Flask(__name__)
 app.secret_key = 'mirumo-secret'
 
 # Создаём базу данных при первом запуске
-if not os.path.exists("database.db"):
+def init_db():
     conn = sqlite3.connect("database.db")
-    conn.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-    conn.execute("CREATE TABLE videos (id INTEGER PRIMARY KEY, title TEXT, filename TEXT, owner TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY, title TEXT, filename TEXT, owner TEXT)")
     conn.commit()
     conn.close()
+
+init_db()
+
 
 # Главная страница
 @app.route('/')
@@ -141,5 +144,7 @@ def upload():
 def serve_video(filename):
     return send_from_directory('.', filename)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+import os
+
+port = int(os.environ.get("PORT", 5000))
+app.run(host="0.0.0.0", port=port)
