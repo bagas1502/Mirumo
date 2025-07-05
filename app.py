@@ -1,19 +1,16 @@
-from flask import Flask, request, redirect, session, send_from_directory
-import sqlite3, os, uuid
+from flask import Flask, request, redirect, session
+import sqlite3, os, requests
 
 app = Flask(__name__)
 app.secret_key = 'mirumo-secret'
 
-# Создаём базу данных при первом запуске
-def init_db():
+# Создание базы
+if not os.path.exists("database.db"):
     conn = sqlite3.connect("database.db")
-    conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-    conn.execute("CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY, title TEXT, filename TEXT, owner TEXT)")
+    conn.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
+    conn.execute("CREATE TABLE videos (id INTEGER PRIMARY KEY, title TEXT, filename TEXT, owner TEXT)")
     conn.commit()
     conn.close()
-
-init_db()
-
 
 # Главная страница
 @app.route('/')
@@ -22,36 +19,26 @@ def index():
     videos = conn.execute("SELECT * FROM videos").fetchall()
     conn.close()
 
-    html = """
-    <html><head><title>Mirumo</title>
-    <style>
-    body { font-family: 'Comic Sans MS', cursive; background: #fff6fb; color: #333; text-align: center; padding: 20px; }
-    a { text-decoration: none; padding: 6px 12px; background: #ffc8ec; border-radius: 10px; color: #333; margin: 5px; }
-    video { border-radius: 10px; margin-top: 10px; }
-    .video-card { border: 2px dashed #ffc8ec; padding: 10px; margin: 20px auto; max-width: 360px; border-radius: 16px; background: #fff; }
-    </style>
-    </head><body>
-    <h1>🎀 Добро пожаловать в Mirumo 🎀</h1>
-    """
+    html = "<html><head><title>Mirumo</title></head><body>"
+    html += "<h1>Добро пожаловать в Mirumo!</h1>"
 
     if 'user' in session:
-        html += f"<p>Привет, <b>{session['user']}</b> | <a href='/upload'>Загрузить видео</a> | <a href='/logout'>Выйти</a></p>"
+        html += f"<p>Привет, {session['user']} | <a href='/upload'>Загрузить видео</a> | <a href='/logout'>Выйти</a></p>"
     else:
         html += "<p><a href='/login'>Войти</a> | <a href='/register'>Регистрация</a></p>"
 
-    html += "<h2>📼 Видео:</h2>"
-
+    html += "<h2>Видео:</h2>"
     if videos:
         for v in videos:
             html += f"""
-            <div class='video-card'>
+            <div>
                 <h3>{v[1]}</h3>
-                <video width='320' controls><source src='/videos/{v[2]}'></video>
+                <video width='320' controls><source src='/{v[2]}'></video>
                 <p>Загрузил: {v[3]}</p>
             </div>
             """
     else:
-        html += "<p>🥺 Пока никто не загрузил видео. Будь первым!</p>"
+        html += "<p>✨ Пока никто не загрузил видео!</p>"
 
     html += "</body></html>"
     return html
@@ -66,16 +53,16 @@ def register():
         user = conn.execute("SELECT * FROM users WHERE username=?", (u,)).fetchone()
         if user:
             return "Пользователь уже существует"
-        conn.execute("INSERT INTO users (username, password) VALUES (?,?)", (u,p))
+        conn.execute("INSERT INTO users (username, password) VALUES (?,?)", (u, p))
         conn.commit()
         conn.close()
         return redirect('/login')
 
     return """
-    <h2>Регистрация</h2>
     <form method="post">
+      <h2>Регистрация</h2>
       Логин: <input name="username"><br>
-      Пароль: <input name="password" type="password"><br><br>
+      Пароль: <input name="password" type="password"><br>
       <button>Зарегистрироваться</button>
     </form>
     """
@@ -87,18 +74,18 @@ def login():
         u = request.form['username']
         p = request.form['password']
         conn = sqlite3.connect("database.db")
-        user = conn.execute("SELECT * FROM users WHERE username=? AND password=?", (u,p)).fetchone()
+        user = conn.execute("SELECT * FROM users WHERE username=? AND password=?", (u, p)).fetchone()
         conn.close()
         if user:
             session['user'] = u
             return redirect('/')
-        return "Неверный логин или пароль"
+        return "Неверные данные"
 
     return """
-    <h2>Вход</h2>
     <form method="post">
+      <h2>Вход</h2>
       Логин: <input name="username"><br>
-      Пароль: <input name="password" type="password"><br><br>
+      Пароль: <input name="password" type="password"><br>
       <button>Войти</button>
     </form>
     """
@@ -118,33 +105,45 @@ def upload():
     if request.method == 'POST':
         title = request.form['title']
         file = request.files['file']
-        if not file:
-            return "Файл не выбран"
+        filename = file.filename
+        save_path = f"vid_{filename}"
+        file.save(save_path)
 
-        filename = str(uuid.uuid4()) + "_" + file.filename
-        file.save(filename)
-
+        # Сохраняем в базу
         conn = sqlite3.connect("database.db")
-        conn.execute("INSERT INTO videos (title, filename, owner) VALUES (?, ?, ?)", (title, filename, session['user']))
+        conn.execute("INSERT INTO videos (title, filename, owner) VALUES (?, ?, ?)", (title, save_path, session['user']))
         conn.commit()
         conn.close()
+
+        # Отправка в Telegram
+        token = '7583600247:AAHpDr9cEsiYOQmSwGqJoSO1mVN_GtcGHgs'
+        chat_id = '-1002329779058'  # ID приватного канала
+        with open(save_path, 'rb') as f:
+            r = requests.post(
+                f"https://api.telegram.org/bot{token}/sendVideo",
+                data={'chat_id': chat_id, 'caption': title},
+                files={'video': f}
+            )
+            print("Результат отправки:", r.text)
+
+        # Удаляем файл после отправки
+        try:
+            os.remove(save_path)
+        except Exception as e:
+            print("Ошибка удаления файла:", e)
+
         return redirect('/')
 
     return """
-    <h2>Загрузка видео</h2>
     <form method="post" enctype="multipart/form-data">
-      Название: <input name="title"><br><br>
-      Видео: <input name="file" type="file"><br><br>
+      <h2>Загрузить видео</h2>
+      Название: <input name="title"><br>
+      Видео: <input name="file" type="file"><br>
       <button>Загрузить</button>
     </form>
     """
 
-# Отдача видеофайлов
-@app.route('/videos/<filename>')
-def serve_video(filename):
-    return send_from_directory('.', filename)
-
-import os
-
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+# Сервис отдачи видеофайлов
+@app.route('/<path:filename>')
+def serve_file(filename):
+    return open(filename, 'rb').read()
