@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mirumo</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="header">
@@ -17,9 +17,11 @@
 
       {% if 'user' in session %}
         <a href="/upload" class="upload-btn">+ Загрузить</a>
+        <a href="/logout" class="auth-btn">Выйти</a>
+      {% else %}
+        <a href="/register" class="auth-btn">Регистрация</a>
+        <a href="/login" class="auth-btn">Вход</a>
       {% endif %}
-
-      <a href="/register" class="auth-btn">Регистрация</a>
     </nav>
   </header>
 
