@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Регистрация — Mirumo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="header">
+    <h1 class="logo">🌸 Mirumo</h1>
+    <nav class="nav">
+      <a href="/">Главная</a>
+      <a href="/login">Вход</a>
+      <a href="/register" class="active">Регистрация</a>
+    </nav>
+  </header>
+
+  <main class="main form-main">
+    <form method="post" class="form-register">
+      <h2>Регистрация</h2>
+      <label>Логин: <input name="username" required></label><br>
+      <label>Пароль: <input name="password" type="password" required></label><br>
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </main>
+</body>
+</html>

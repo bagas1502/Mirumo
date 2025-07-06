@@ -17,13 +17,11 @@ from flask import render_template
 
 @app.route('/')
 def index():
-    conn = sqlite3.connect("database.db")
-    videos = conn.execute("SELECT * FROM videos").fetchall()
-    conn.close()
-    user = session['user'] if 'user' in session else None
-    return render_template("index.html", videos=videos, user=user)
+    return render_template("index.html")
 
 # Регистрация
+from flask import render_template, request, redirect
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -32,20 +30,15 @@ def register():
         conn = sqlite3.connect("database.db")
         user = conn.execute("SELECT * FROM users WHERE username=?", (u,)).fetchone()
         if user:
+            conn.close()
             return "Пользователь уже существует"
         conn.execute("INSERT INTO users (username, password) VALUES (?,?)", (u, p))
         conn.commit()
         conn.close()
         return redirect('/login')
 
-    return """
-    <form method="post">
-      <h2>Регистрация</h2>
-      Логин: <input name="username"><br>
-      Пароль: <input name="password" type="password"><br>
-      <button>Зарегистрироваться</button>
-    </form>
-    """
+    return render_template('register.html')
+
 
 # Вход
 @app.route('/login', methods=['GET', 'POST'])
