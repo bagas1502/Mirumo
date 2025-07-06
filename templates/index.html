@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Загрузка видео | Mirumo ✨</title>
+  <title>Mirumo ✨ Главная</title>
   <link rel="stylesheet" href="/static/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
@@ -11,49 +11,33 @@
   <header>
     <h1>Mirumo ✨</h1>
     <nav>
-      <a href="index.html">Главная</a>
-      <a href="login.html">Войти</a>
+      {% if user %}
+        <span class="user">Привет, {{ user }}</span>
+        <a href="/upload">➕ Загрузить</a>
+        <a href="/logout">🚪 Выйти</a>
+      {% else %}
+        <a href="/login">Войти</a>
+        <a href="/register">Регистрация</a>
+      {% endif %}
     </nav>
   </header>
 
-  <main class="upload-container">
-    <h2>Загрузка нового видео 🎥</h2>
-    <form id="uploadForm">
-      <label for="title">Название видео:</label>
-      <input type="text" id="title" required>
+  <main class="video-gallery">
+    <h2>🌸 Добро пожаловать в галерею Mirumo!</h2>
 
-      <label for="desc">Описание:</label>
-      <textarea id="desc" rows="4" placeholder="О чём ваше видео?"></textarea>
-
-      <label for="videoFile">Выберите файл:</label>
-      <input type="file" id="videoFile" accept="video/*" required>
-
-      <button type="submit">Загрузить 💖</button>
-    </form>
-
-    <div id="previewContainer" class="preview" style="display:none;">
-      <h3>Предпросмотр ✨</h3>
-      <video controls id="videoPreview"></video>
-      <p id="videoTitle"></p>
-    </div>
+    {% if videos %}
+      <div class="videos">
+        {% for v in videos %}
+          <div class="video-card">
+            <video controls src="/{{ v[2] }}"></video>
+            <h3>{{ v[1] }}</h3>
+            <p>👤 {{ v[3] }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty">✨ Пока никто не загрузил видео</p>
+    {% endif %}
   </main>
-
-  <script>
-    const form = document.getElementById("uploadForm");
-    const videoFile = document.getElementById("videoFile");
-    const preview = document.getElementById("previewContainer");
-    const videoPreview = document.getElementById("videoPreview");
-    const videoTitle = document.getElementById("videoTitle");
-
-    form.addEventListener("submit", e => {
-      e.preventDefault();
-      const file = videoFile.files[0];
-      if (file) {
-        videoPreview.src = URL.createObjectURL(file);
-        videoTitle.textContent = document.getElementById("title").value;
-        preview.style.display = "block";
-      }
-    });
-  </script>
 </body>
 </html>

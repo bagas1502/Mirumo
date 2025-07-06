@@ -17,7 +17,11 @@ from flask import render_template
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    conn = sqlite3.connect("database.db")
+    videos = conn.execute("SELECT * FROM videos").fetchall()
+    conn.close()
+    user = session['user'] if 'user' in session else None
+    return render_template("index.html", videos=videos, user=user)
 
 # Регистрация
 @app.route('/register', methods=['GET', 'POST'])
