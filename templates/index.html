@@ -1,16 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mirumo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Загрузка видео | Mirumo ✨</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Добро пожаловать в Mirumo!</h1>
+  <header>
+    <h1>Mirumo ✨</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="login.html">Войти</a>
+    </nav>
+  </header>
 
-    {% if session['user'] %}
-        <p>Привет, {{ session['user'] }} | <a href='/upload'>Загрузить видео</a> | <a href='/logout'>Выйти</a></p>
-    {% else %}
-        <p><a href='/login'>Войти</a> | <a href='/register'>Регистрация</a></p>
-    {% endif %}
+  <main class="upload-container">
+    <h2>Загрузка нового видео 🎥</h2>
+    <form id="uploadForm">
+      <label for="title">Название видео:</label>
+      <input type="text" id="title" required>
+
+      <label for="desc">Описание:</label>
+      <textarea id="desc" rows="4" placeholder="О чём ваше видео?"></textarea>
+
+      <label for="videoFile">Выберите файл:</label>
+      <input type="file" id="videoFile" accept="video/*" required>
+
+      <button type="submit">Загрузить 💖</button>
+    </form>
+
+    <div id="previewContainer" class="preview" style="display:none;">
+      <h3>Предпросмотр ✨</h3>
+      <video controls id="videoPreview"></video>
+      <p id="videoTitle"></p>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const videoFile = document.getElementById("videoFile");
+    const preview = document.getElementById("previewContainer");
+    const videoPreview = document.getElementById("videoPreview");
+    const videoTitle = document.getElementById("videoTitle");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const file = videoFile.files[0];
+      if (file) {
+        videoPreview.src = URL.createObjectURL(file);
+        videoTitle.textContent = document.getElementById("title").value;
+        preview.style.display = "block";
+      }
+    });
+  </script>
 </body>
 </html>
