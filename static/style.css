@@ -1,3 +1,4 @@
+/* Основные стили */
 body {
   margin: 0;
   font-family: 'Nunito', sans-serif;
@@ -5,6 +6,7 @@ body {
   color: #333;
 }
 
+/* Шапка */
 .header {
   background-color: #ffeef6;
   display: flex;
@@ -14,16 +16,18 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* Логотип */
 .logo {
   font-family: 'Mochiy Pop One', cursive;
   font-size: 2rem;
+  background: #ffb6c1;
   color: white;
-  background: linear-gradient(to right, #ff82a9, #ffc1e3);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 2rem;
-  box-shadow: 0 0 15px rgba(255, 130, 169, 0.5);
-  transition: transform 0.3s ease;
   display: inline-block;
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+  transition: transform 0.3s ease;
+  margin: 0;
 }
 
 .logo:hover {
@@ -31,9 +35,9 @@ body {
   box-shadow: 0 0 20px rgba(255, 130, 169, 0.8);
 }
 
-
+/* Навигация */
 .nav a {
-  margin-left: 1.5rem;
+  margin-left: 1rem;
   text-decoration: none;
   color: #555;
   font-weight: bold;
@@ -44,13 +48,37 @@ body {
   color: #ff82a9;
 }
 
+/* Кнопки */
 .upload-btn {
-  background: #ffb3d1;
+  background: #ff82a9;
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
 }
 
+.upload-btn:hover {
+  background: #ff5c87;
+}
+
+.auth-btn {
+  background: #f3d0e3;
+  color: #7d4c6c;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  background: #e8b3cd;
+}
+
+/* Основной контент */
 .main {
   padding: 2rem;
 }
@@ -65,6 +93,7 @@ body {
   font-weight: bold;
 }
 
+/* Видео секции */
 .videos h3 {
   margin-top: 2rem;
   color: #ff82a9;
@@ -116,13 +145,7 @@ body {
   border-radius: 0.8rem;
 }
 
-.footer {
-  background: #ffeef6;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  margin-top: 2rem;
-}
+/* Сообщение если нет видео */
 .empty-message {
   background: #fff0f5;
   border: 2px dashed #ffb3d1;
@@ -133,6 +156,17 @@ body {
   color: #cc6c9c;
   box-shadow: 0 0 10px rgba(255,182,193,0.2);
 }
+
+/* Футер */
+.footer {
+  background: #ffeef6;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* Форма регистрации/входа */
 .form-main {
   display: flex;
   justify-content: center;
@@ -174,68 +208,4 @@ body {
 
 .form-register button:hover {
   background: #ff5c87;
-}
-.auth-btn {
-  margin-left: auto;
-  background: #f3d0e3;
-  color: #7d4c6c;
-  padding: 0.4rem 0.9rem;
-  border-radius: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.auth-btn:hover {
-  background: #e8b3cd;
-}
-.logo {
-  font-family: 'Mochiy Pop One', cursive;
-  font-size: 2rem;
-  background: #ffb6c1;
-  color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: 2rem;
-  display: inline-block;
-  box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
-  margin: 0.5rem;
-}
-
-.upload-btn {
-  background: #ff82a9;
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 1rem;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.upload-btn:hover {
-  background: #ff5c87;
-}
-
-.auth-btn {
-  background: #f3d0e3;
-  color: #7d4c6c;
-  padding: 0.4rem 1rem;
-  border-radius: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.auth-btn:hover {
-  background: #e8b3cd;
-}
-
-.empty-message {
-  background: #fff0f5;
-  border: 2px dashed #ffb3d1;
-  padding: 2rem;
-  text-align: center;
-  border-radius: 1rem;
-  font-size: 1.1rem;
-  color: #cc6c9c;
-  box-shadow: 0 0 10px rgba(255,182,193,0.2);
 }
