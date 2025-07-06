@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mirumo</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="header">
@@ -25,33 +25,33 @@
     </section>
 
     <section class="videos">
-      <h3>🌟 Видео дня</h3>
-      <div class="video-highlight">
-        <img src="/static/preview.jpg" alt="Видео дня" />
-        <div class="video-info">
-          <h4>Полет воображения</h4>
-          <p>от @mirumo_user</p>
+      {% if videos %}
+        <h3>🌟 Видео дня</h3>
+        <div class="video-highlight">
+          <img src="{{ videos[0].thumbnail_url }}" alt="Видео дня" />
+          <div class="video-info">
+            <h4>{{ videos[0].title }}</h4>
+            <p>от @{{ videos[0].username }}</p>
+          </div>
         </div>
-      </div>
 
-      <h3>🎥 Новые загрузки</h3>
-      <div class="video-grid">
-        {% if videos %}
+        <h3>🎥 Новые загрузки</h3>
+        <div class="video-grid">
           {% for video in videos %}
-          <div class="video-card">
-            <a href="/watch/{{ video.id }}">
-              <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}">
-              <h4>{{ video.title }}</h4>
-              <p>@{{ video.username }}</p>
-            </a>
-          </div>
+            <div class="video-card">
+              <a href="/watch/{{ video.id }}">
+                <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" />
+                <h4>{{ video.title }}</h4>
+                <p>@{{ video.username }}</p>
+              </a>
+            </div>
           {% endfor %}
-        {% else %}
-          <div class="empty-message">
-            🔍 Пока здесь пусто… Загрузите первое видео!
-          </div>
-        {% endif %}
-      </div>
+        </div>
+      {% else %}
+        <div class="empty-message">
+          🔍 Пока здесь пусто… Загрузите первое видео!
+        </div>
+      {% endif %}
     </section>
   </main>
 
