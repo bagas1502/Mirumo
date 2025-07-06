@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mirumo</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Nunito&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="header">
-    <h1 class="logo">Mirumo 🌸</h1>
+    <h1 class="logo">🌸 Mirumo</h1>
     <nav class="nav">
       <a href="/">Главная</a>
       <a href="/videos">Видео</a>
@@ -27,7 +27,7 @@
     <section class="videos">
       <h3>🌟 Видео дня</h3>
       <div class="video-highlight">
-        <img src="/static/preview.jpg" alt="Видео дня">
+        <img src="/static/preview.jpg" alt="Видео дня" />
         <div class="video-info">
           <h4>Полет воображения</h4>
           <p>от @mirumo_user</p>
@@ -36,15 +36,21 @@
 
       <h3>🎥 Новые загрузки</h3>
       <div class="video-grid">
-        {% for video in videos %}
-        <div class="video-card">
-          <a href="/watch/{{ video.id }}">
-            <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}">
-            <h4>{{ video.title }}</h4>
-            <p>@{{ video.username }}</p>
-          </a>
-        </div>
-        {% endfor %}
+        {% if videos %}
+          {% for video in videos %}
+          <div class="video-card">
+            <a href="/watch/{{ video.id }}">
+              <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}">
+              <h4>{{ video.title }}</h4>
+              <p>@{{ video.username }}</p>
+            </a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-message">
+            🔍 Пока здесь пусто… Загрузите первое видео!
+          </div>
+        {% endif %}
       </div>
     </section>
   </main>

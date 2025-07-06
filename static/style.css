@@ -17,8 +17,20 @@ body {
 .logo {
   font-family: 'Mochiy Pop One', cursive;
   font-size: 2rem;
-  color: #ff82a9;
+  color: white;
+  background: linear-gradient(to right, #ff82a9, #ffc1e3);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  box-shadow: 0 0 15px rgba(255, 130, 169, 0.5);
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
+
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 130, 169, 0.8);
+}
+
 
 .nav a {
   margin-left: 1.5rem;
@@ -110,4 +122,14 @@ body {
   padding: 1rem;
   font-size: 0.9rem;
   margin-top: 2rem;
+}
+.empty-message {
+  background: #fff0f5;
+  border: 2px dashed #ffb3d1;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  color: #cc6c9c;
+  box-shadow: 0 0 10px rgba(255,182,193,0.2);
 }
