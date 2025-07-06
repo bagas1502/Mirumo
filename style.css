@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: #fff6fb;
+  color: #444;
+}
+
+header {
+  background: linear-gradient(90deg, #ffbde8, #c5c7ff);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 0 10px #fceaff;
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.video-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.video-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+  transition: transform 0.2s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.03);
+}
+
+video {
+  width: 100%;
+  border-radius: 14px;
+}
+
+h3 {
+  margin-top: 0.8rem;
+  font-size: 1.1rem;
+  color: #ff69b4;
+  text-align: center;
+}
+
+.upload-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.upload-container h2 {
+  text-align: center;
+  color: #ff69b4;
+  margin-bottom: 1.5rem;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #a14faa;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="file"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ffe2f0;
+  border-radius: 12px;
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  background: #fffafc;
+}
+
+form button {
+  display: block;
+  margin: 2rem auto 0;
+  background: #ff9ccf;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #f285c2;
+}
+.no-videos {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #b37db2;
+  padding: 3rem;
+  background: #fff0fa;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 600px;
+  margin: 3rem auto;
+  line-height: 1.6;
+}

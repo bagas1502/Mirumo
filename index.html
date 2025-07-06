@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mirumo 🌸</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌸 Добро пожаловать в Mirumo</h1>
+    <p style="color: #a14faa; font-size: 1.1rem;">Милое место, где каждый может делиться вдохновением ✨</p>
+
+    {% if user %}
+      <p>Привет, <strong>{{ user }}</strong>! <a href="/logout">Выйти</a> | <a href="/upload">Загрузить видео</a></p>
+    {% else %}
+      <p><a href="/login">Вход</a> | <a href="/register">Регистрация</a></p>
+    {% endif %}
+  </header>
+
+  <main>
+    <h2>🎥 Видео:</h2>
+
+    {% if videos %}
+      {% for v in videos %}
+        <div class="video-card">
+          <h3>{{ v[1] }}</h3>
+          <video src="{{ v[2] }}" controls></video>
+          <p>Автор: {{ v[3] }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="color: #999; font-style: italic;">Пока ни одно видео не загружено... 🌸 Поделись первым вдохновением!</p>
+    {% endif %}
+  </main>
+</body>
+</html>
