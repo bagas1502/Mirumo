@@ -189,3 +189,53 @@ body {
 .auth-btn:hover {
   background: #e8b3cd;
 }
+.logo {
+  font-family: 'Mochiy Pop One', cursive;
+  font-size: 2rem;
+  background: #ffb6c1;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.5);
+  margin: 0.5rem;
+}
+
+.upload-btn {
+  background: #ff82a9;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.upload-btn:hover {
+  background: #ff5c87;
+}
+
+.auth-btn {
+  background: #f3d0e3;
+  color: #7d4c6c;
+  padding: 0.4rem 1rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+  background: #e8b3cd;
+}
+
+.empty-message {
+  background: #fff0f5;
+  border: 2px dashed #ffb3d1;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  color: #cc6c9c;
+  box-shadow: 0 0 10px rgba(255,182,193,0.2);
+}

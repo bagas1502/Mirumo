@@ -9,12 +9,16 @@
 </head>
 <body>
   <header class="header">
-    <h1 class="logo">🌸 Mirumo</h1>
+    <h1 class="logo">Mirumo</h1>
     <nav class="nav">
       <a href="/">Главная</a>
       <a href="/videos">Видео</a>
       <a href="/profile">Профиль</a>
-      <a href="/upload" class="upload-btn">+ Загрузить</a>
+
+      {% if 'user' in session %}
+        <a href="/upload" class="upload-btn">+ Загрузить</a>
+      {% endif %}
+
       <a href="/register" class="auth-btn">Регистрация</a>
     </nav>
   </header>
@@ -57,7 +61,7 @@
   </main>
 
   <footer class="footer">
-    <p>🌸 Mirumo — уютное видео-пространство. 2025</p>
+    <p>Mirumo — уютное видео-пространство. 2025</p>
   </footer>
 </body>
 </html>

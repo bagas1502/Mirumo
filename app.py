@@ -17,7 +17,23 @@ from flask import render_template
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    conn = sqlite3.connect("database.db")
+    rows = conn.execute("SELECT * FROM videos ORDER BY id DESC").fetchall()
+    conn.close()
+
+    # Преобразуем в список словарей
+    videos = [
+        {
+            "id": row[0],
+            "title": row[1],
+            "filename": row[2],
+            "username": row[3],
+            "thumbnail_url": "/static/preview.jpg"  # Пока временная заглушка
+        }
+        for row in rows
+    ]
+
+    return render_template("index.html", videos=videos)
 
 # Регистрация
 from flask import render_template, request, redirect
