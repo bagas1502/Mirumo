@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 services:
   - type: web
     name: mirumo
@@ -5,3 +6,12 @@ services:
     buildCommand: ""
     startCommand: "python app.py"
     autoDeploy: false
+=======
+services:
+  - type: web
+    name: mirumo
+    env: python
+    buildCommand: ""
+    startCommand: "python app.py"
+    autoDeploy: false
+>>>>>>> a9f80743dabb849a7ad57131750c547a98f07b89
