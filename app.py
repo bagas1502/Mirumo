@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Flask, request, redirect, session
 import sqlite3, os, requests
 
@@ -116,9 +115,10 @@ def upload():
         conn.commit()
         conn.close()
 
+
         # Отправка в Telegram
         token = '7583600247:AAHpDr9cEsiYOQmSwGqJoSO1mVN_GtcGHgs'
-        chat_id = '-1002329779058'  # ID приватного канала
+        chat_id = '-1002329779058'
         with open(save_path, 'rb') as f:
             r = requests.post(
                 f"https://api.telegram.org/bot{token}/sendVideo",
