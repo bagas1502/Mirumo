@@ -13,35 +13,11 @@ if not os.path.exists("database.db"):
     conn.close()
 
 # Главная страница
+from flask import render_template
+
 @app.route('/')
 def index():
-    conn = sqlite3.connect("database.db")
-    videos = conn.execute("SELECT * FROM videos").fetchall()
-    conn.close()
-
-    html = "<html><head><title>Mirumo</title></head><body>"
-    html += "<h1>Добро пожаловать в Mirumo!</h1>"
-
-    if 'user' in session:
-        html += f"<p>Привет, {session['user']} | <a href='/upload'>Загрузить видео</a> | <a href='/logout'>Выйти</a></p>"
-    else:
-        html += "<p><a href='/login'>Войти</a> | <a href='/register'>Регистрация</a></p>"
-
-    html += "<h2>Видео:</h2>"
-    if videos:
-        for v in videos:
-            html += f"""
-            <div>
-                <h3>{v[1]}</h3>
-                <video width='320' controls><source src='/{v[2]}'></video>
-                <p>Загрузил: {v[3]}</p>
-            </div>
-            """
-    else:
-        html += "<p>✨ Пока никто не загрузил видео!</p>"
-
-    html += "</body></html>"
-    return html
+    return render_template("index.html")
 
 # Регистрация
 @app.route('/register', methods=['GET', 'POST'])
