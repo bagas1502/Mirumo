@@ -209,3 +209,88 @@ body {
 .form-register button:hover {
   background: #ff5c87;
 }
+/* 📱 Адаптивность для телефонов и планшетов */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .nav a {
+    margin: 0;
+    padding: 0.5rem;
+    width: 100%;
+    background: #ffeef6;
+    border-radius: 0.5rem;
+  }
+
+  .main {
+    padding: 1rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .video-highlight {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .video-highlight img {
+    width: 100%;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-register {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .video-card {
+    padding: 0.5rem;
+  }
+
+  .upload-btn,
+  .auth-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-register {
+    padding: 1rem;
+  }
+
+  .upload-btn,
+  .auth-btn {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+}
