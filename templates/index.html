@@ -3,41 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mirumo ✨ Главная</title>
+  <title>Mirumo — Видео от художников 🎨</title>
   <link rel="stylesheet" href="/static/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <h1>Mirumo ✨</h1>
-    <nav>
-      {% if user %}
-        <span class="user">Привет, {{ user }}</span>
-        <a href="/upload">➕ Загрузить</a>
-        <a href="/logout">🚪 Выйти</a>
-      {% else %}
-        <a href="/login">Войти</a>
-        <a href="/register">Регистрация</a>
-      {% endif %}
-    </nav>
-  </header>
-
-  <main class="video-gallery">
-    <h2>🌸 Добро пожаловать в галерею Mirumo!</h2>
-
-    {% if videos %}
-      <div class="videos">
-        {% for v in videos %}
-          <div class="video-card">
-            <video controls src="/{{ v[2] }}"></video>
-            <h3>{{ v[1] }}</h3>
-            <p>👤 {{ v[3] }}</p>
-          </div>
-        {% endfor %}
-      </div>
+<header>
+  <h1 class="logo">Mirumo</h1>
+  <nav>
+    {% if session.get('user') %}
+      <a href="/upload">Загрузить</a>
+      <a href="/logout">Выйти</a>
     {% else %}
-      <p class="empty">✨ Пока никто не загрузил видео</p>
+      <a href="/login">Войти</a>
+      <a href="/register">Регистрация</a>
     {% endif %}
-  </main>
+  </nav>
+</header>
+
+<main class="videos">
+  {% for video in videos %}
+    <div class="video-card">
+      <video src="/{{ video[2] }}" controls></video>
+      <div class="meta">
+        <p class="title">{{ video[1] }}</p>
+        <p class="author">Загружено: {{ video[3] }}</p>
+      </div>
+    </div>
+  {% else %}
+    <p class="no-videos">Пока никто не загрузил видео ✨</p>
+  {% endfor %}
+</main>
+
+
+  <footer>
+    <p>🌟 Mirumo — место вдохновения. Поддержи друг друга!</p>
+  </footer>
 </body>
 </html>
