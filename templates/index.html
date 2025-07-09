@@ -65,5 +65,9 @@
   <footer class="footer">
     <p>Mirumo — уютное видео-пространство. 2025</p>
   </footer>
+
+  {% if 'user' not in session %}
+    <a href="/register" class="mobile-register-btn">+</a>
+  {% endif %}
 </body>
 </html>
